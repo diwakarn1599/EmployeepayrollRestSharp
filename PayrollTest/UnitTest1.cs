@@ -56,6 +56,22 @@ namespace PayrollTest
 
         }
         /// <summary>
+        /// Method to add a json object to json server
+        /// </summary>
+        /// <param name="json"></param>
+        /// <returns></returns>
+        public IRestResponse AddToJsonServer(JsonObject json)
+        {
+            RestRequest request = new RestRequest("/employees", Method.POST);
+            //adding type as json in request and pasing the json object as a body of request
+            request.AddParameter("application/json", json, ParameterType.RequestBody);
+
+            //Execute the request
+            IRestResponse response = client.Execute(request);
+            return response;
+
+        }
+        /// <summary>
         /// Test method to add a new employee to the json server
         /// </summary>
         [TestMethod]
@@ -66,13 +82,11 @@ namespace PayrollTest
             //object for json
             JsonObject json = new JsonObject();
             //Adding new employee details to json object
-            json.Add("name", "Messi");
-            json.Add("salary", 15000);
-            //adding type as json in request and pasing the json object as a body of request
-            request.AddParameter("application/json", json, ParameterType.RequestBody);
+            json.Add("name", "Neymar");
+            json.Add("salary", 13000);
 
-            //Execute the request
-            IRestResponse response = client.Execute(request);
+            //calling method to add to server
+            IRestResponse response = AddToJsonServer(json);
             //deserialize json objject to employee class  object
             var res = JsonConvert.DeserializeObject<Employee>(response.Content);
 
@@ -83,5 +97,7 @@ namespace PayrollTest
             Assert.AreEqual("Messi", res.name);
             Console.WriteLine($"id = {res.id} , name = {res.name} , salary = {res.salary}");
         }
+        
+        
     }
 }
