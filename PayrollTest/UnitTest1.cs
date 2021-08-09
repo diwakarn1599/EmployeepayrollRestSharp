@@ -11,7 +11,7 @@ namespace PayrollTest
     [TestClass]
     public class PayrollRestSharpTest
     {
-        //Initializing the restclient as null
+        //Initializing the restclient 
         RestClient client ;
 
         [TestInitialize]
