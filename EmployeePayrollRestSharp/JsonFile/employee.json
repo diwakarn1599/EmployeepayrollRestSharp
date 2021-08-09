@@ -24,6 +24,16 @@
       "name": "Neymar",
       "salary": 13000,
       "id": 5
+    },
+    {
+      "name": "Chettri",
+      "salary": 40000,
+      "id": 6
+    },
+    {
+      "name": "Thapa",
+      "salary": 35000,
+      "id": 7
     }
   ]
 }
