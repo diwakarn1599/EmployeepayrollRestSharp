@@ -16,8 +16,8 @@
       "salary": 11000
     },
     {
-      "name": "Messi",
-      "salary": 15000,
+      "name": "Lionel Messi",
+      "salary": 20000,
       "id": 4
     },
     {
@@ -34,6 +34,11 @@
       "name": "Thapa",
       "salary": 35000,
       "id": 7
+    },
+    {
+      "name": "Cristiano Ronaldo",
+      "salary": 20000,
+      "id": 8
     }
   ]
 }
