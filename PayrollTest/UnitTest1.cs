@@ -20,7 +20,10 @@ namespace PayrollTest
         {
             client = new RestClient("http://localhost:3000");
         }
-
+        /// <summary>
+        /// Method to get all employee details from server
+        /// </summary>
+        /// <returns></returns>
         public IRestResponse GetAllEmployee()
         {
             //Get request from json server
@@ -30,7 +33,9 @@ namespace PayrollTest
 
             return response;
         }
-
+        /// <summary>
+        /// Test method to get all employee details
+        /// </summary>
         [TestMethod]
         public void TestMethodToGetAllEmployees()
         {
@@ -42,12 +47,41 @@ namespace PayrollTest
             Assert.AreEqual(3, res.Count);
             //Checking the response statuscode 200-ok
             Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+            
             res.ForEach((x) =>
             {
                 Console.WriteLine($"id = {x.id} , name = {x.name} , salary = {x.salary}");
             });
 
 
+        }
+        /// <summary>
+        /// Test method to add a new employee to the json server
+        /// </summary>
+        [TestMethod]
+        public void TestMethodToAddEmployeeToJsonServerFile()
+        {
+            //Setting rest rquest to url and setiing method to post
+            RestRequest request = new RestRequest("/employees", Method.POST);
+            //object for json
+            JsonObject json = new JsonObject();
+            //Adding new employee details to json object
+            json.Add("name", "Messi");
+            json.Add("salary", 15000);
+            //adding type as json in request and pasing the json object as a body of request
+            request.AddParameter("application/json", json, ParameterType.RequestBody);
+
+            //Execute the request
+            IRestResponse response = client.Execute(request);
+            //deserialize json objject to employee class  object
+            var res = JsonConvert.DeserializeObject<Employee>(response.Content);
+
+            //Checking the response statuscode 201-created
+            Assert.AreEqual(HttpStatusCode.Created, response.StatusCode);
+
+            //checking object values
+            Assert.AreEqual("Messi", res.name);
+            Console.WriteLine($"id = {res.id} , name = {res.name} , salary = {res.salary}");
         }
     }
 }
